@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mini Expense Tracker</title>
+  <script defer src="script.js"></script>
+  <style>
+    :root {
+      --navy: #27374D;
+      --steel: #526D82;
+      --mist: #9DB2BF;
+      --ice: #DDE6ED;
+      --white: #ffffff;
+      --danger: #dc2626;
+      --danger-bg: #fef2f2;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--ice);
+      color: var(--navy);
+      padding: 2rem 1rem;
+      line-height: 1.5;
+    }
+
+    .page-wrapper {
+      max-width: 680px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    /* Container 1: Header & Total */
+    .header-container {
+      background-color: var(--navy);
+      color: var(--white);
+      border-radius: 10px;
+      padding: 1.35rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      font-size: 0.88rem;
+      color: var(--ice);
+      margin-top: 0.15rem;
+    }
+
+    .total-box {
+      background-color: var(--steel);
+      border-radius: 8px;
+      padding: 0.5rem 0.9rem;
+      text-align: right;
+    }
+
+    .total-label {
+      display: block;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--ice);
+    }
+
+    .total-value {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    /* Container 2: Add Expense Form */
+    .form-container {
+      background-color: var(--white);
+      border: 1px solid var(--mist);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .section-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.85rem;
+    }
+
+    .expense-form {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr) auto;
+      gap: 0.75rem;
+      align-items: end;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      min-width: 0;
+    }
+
+    label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--steel);
+    }
+
+    input,
+    select,
+    button {
+      font: inherit;
+      font-size: 0.92rem;
+      padding: 0.55rem 0.75rem;
+      border-radius: 6px;
+      border: 1px solid var(--mist);
+      color: var(--navy);
+    }
+
+    .expense-form input,
+    .expense-form select {
+      width: 100%;
+      min-width: 0;
+      background-color: var(--white);
+    }
+
+    input:focus,
+    select:focus {
+      outline: 2px solid var(--steel);
+      border-color: transparent;
+    }
+
+    .btn-add {
+      background-color: var(--navy);
+      color: var(--white);
+      border: none;
+      font-weight: 600;
+      padding: 0.58rem 1.15rem;
+      cursor: pointer;
+    }
+
+    .btn-add:hover {
+      background-color: var(--steel);
+    }
+
+    .error-message {
+      display: none;
+      font-size: 0.85rem;
+      color: var(--danger);
+      background-color: var(--danger-bg);
+      border: 1px solid #fecaca;
+      border-radius: 6px;
+      padding: 0.5rem 0.75rem;
+      margin-top: 0.85rem;
+    }
+
+    .error-message.visible {
+      display: block;
+    }
+
+    /* Container 3: Filter & Expense List */
+    .list-container {
+      background-color: var(--white);
+      border: 1px solid var(--mist);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      padding-bottom: 0.9rem;
+      margin-bottom: 0.9rem;
+      border-bottom: 1px solid var(--ice);
+    }
+
+    .toolbar .section-title {
+      margin-bottom: 0;
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .filter-group select {
+      padding: 0.35rem 0.65rem;
+      font-size: 0.86rem;
+    }
+
+    .expense-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .expense-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0.95rem;
+      border: 1px solid var(--ice);
+      border-left: 4px solid var(--steel);
+      border-radius: 8px;
+      background-color: var(--white);
+    }
+
+    .expense-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .expense-title {
+      font-weight: 600;
+    }
+
+    .expense-category {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--navy);
+      background-color: var(--ice);
+      padding: 0.1rem 0.5rem;
+      border-radius: 4px;
+      width: fit-content;
+    }
+
+    .expense-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .expense-amount {
+      font-weight: 700;
+    }
+
+    .btn-delete {
+      background: transparent;
+      border: none;
+      color: var(--mist);
+      font-size: 1.15rem;
+      line-height: 1;
+      padding: 0.2rem 0.4rem;
+      cursor: pointer;
+    }
+
+    .btn-delete:hover {
+      color: var(--danger);
+    }
+
+    .empty-state {
+      text-align: center;
+      color: var(--steel);
+      padding: 1.5rem 1rem;
+      border: 1px dashed var(--mist);
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      .expense-form {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-wrapper">
+    <!-- 1. Header Container -->
+    <div class="header-container">
+      <div>
+        <h1>Mini Expense Tracker</h1>
+        <p class="subtitle">Track your daily expenses by category</p>
+      </div>
+      <div class="total-box">
+        <span class="total-label">Total</span>
+        <span class="total-value">₱<span id="total-amount">0.00</span></span>
+      </div>
+    </div>
+
+    <!-- 2. Form Container -->
+    <div class="form-container">
+      <h2 class="section-title">Add Expense</h2>
+      <form id="expense-form" class="expense-form" novalidate>
+        <div class="field">
+          <label for="expense-title">Title</label>
+          <input id="expense-title" type="text" placeholder="e.g., Iced Coffee" required />
+        </div>
+
+        <div class="field">
+          <label for="expense-amount">Amount</label>
+          <input id="expense-amount" type="number" step="0.01" min="0.01" placeholder="0.00" required />
+        </div>
+
+        <div class="field">
+          <label for="expense-category">Category</label>
+          <select id="expense-category">
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <button class="btn-add" type="submit">Add</button>
+      </form>
+      <p id="error-message" class="error-message" role="alert"></p>
+    </div>
+
+    <!-- 3. Expense List Container -->
+    <div class="list-container">
+      <div class="toolbar">
+        <h2 class="section-title">Expenses</h2>
+        <div class="filter-group">
+          <label for="category-filter">Filter:</label>
+          <select id="category-filter">
+            <option value="All">All</option>
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <ul id="expense-list" class="expense-list"></ul>
+    </div>
+  </main>
+</body>
+</html>
