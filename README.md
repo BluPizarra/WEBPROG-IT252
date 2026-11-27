@@ -1,33 +1,26 @@
-# Mini Expense Tracker
+# WEBPROG-IT252
 
 [![HTML5](https://img.shields.io/badge/HTML5-404258?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-474E68?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-50577A?style=for-the-badge&logo=javascript&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
-> A lightweight, responsive expense tracker built with vanilla HTML, CSS, and JavaScript for logging and filtering daily expenses by category.
+> A collection of web programming projects, exercises, and frontend builds using core web technologies.
 
 ## Overview
 
-Mini Expense Tracker (`WEBPROG-IT252`) is a single-page web application that lets users add, categorize, filter, and remove daily expenses with real-time total calculation in Philippine Pesos (₱).
+This repository serves as a workspace for web programming projects focused on building interactive, responsive interfaces with vanilla HTML, CSS, and JavaScript. Each project explores practical frontend concepts such as semantic markup, CSS layout systems, DOM manipulation, state management, and client-side validation.
 
-## Features
+## Projects
 
-- **Add Expenses**: Submit expense entries with a title, amount (two-decimal precision), and category (`Food`, `Transport`, or `Other`).
-- **Input Validation**: Displays inline error feedback for empty titles or non-positive amounts.
-- **Category Filtering**: Filter the expense list by `All`, `Food`, `Transport`, or `Other`, with an empty-state message when no items match.
-- **Live Total Calculation**: Automatically recalculates and formats the displayed total based on the currently visible expenses.
-- **Delete Entries**: Remove individual expenses via delegated click handling on each item's delete button.
-- **XSS-Safe Rendering**: Escapes user-provided text before rendering into the DOM.
-- **Responsive Layout**: Adapts from a multi-column form grid on desktop to a single-column layout on screens 600px wide or smaller.
+| Project | Files | Description |
+| --- | --- | --- |
+| Mini Expense Tracker | `index.html`, `script.js` | A responsive single-page expense tracker with category filtering, inline form validation, XSS-safe rendering, and live total calculation. |
 
-## Project Structure
+## Tech Stack
 
-```text
-WEBPROG-IT252/
-├── index.html    # Markup, layout, and embedded CSS styles
-├── script.js     # State management, validation, filtering, and DOM rendering
-└── README.md     # Project documentation
-```
+- **HTML5**: Semantic structure and accessible form controls
+- **CSS3**: Custom properties, Flexbox, Grid, and responsive media queries
+- **JavaScript**: Client-side state management, event delegation, and dynamic DOM updates
 
 ## Getting Started
 
@@ -35,8 +28,8 @@ WEBPROG-IT252/
    ```bash
    git clone https://github.com/BluPizarra/WEBPROG-IT252.git
    ```
-2. Navigate to the project folder:
+2. Navigate into the repository folder:
    ```bash
    cd WEBPROG-IT252
    ```
-3. Open `index.html` directly in any modern web browser. No build tools or dependencies are required.
+3. Open `index.html` (or the target project's entry HTML file) directly in any modern web browser. No build tools or external dependencies are required.
